@@ -1,0 +1,4 @@
+config:
+  pool:
+    coin: nexa
+    chainTypeOverride: Nexa

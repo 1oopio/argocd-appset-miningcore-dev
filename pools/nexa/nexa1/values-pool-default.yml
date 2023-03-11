@@ -1,0 +1,83 @@
+imagePullSecrets:
+  - name: mc-pullsecret
+
+serviceMonitor:
+  enabled: true
+  jobLabel: miningcore-dev
+
+common:
+  apiPort: 5000
+
+stratum:
+  enabled: true
+  name: stratum
+  image:
+    repository: ghcr.io/1oopio/miningcore
+    pullPolicy: IfNotPresent
+    tag: "pr-5"
+  stratum_ports:
+    - name: vardiff1
+      containerPort: 4300
+      protocol: TCP
+      nodePort: 30000
+    - name: "highdiff1"
+      containerPort: 4301
+      protocol: TCP
+      nodePort: 30001
+  service:
+    type: NodePort
+  affinity: {}
+
+payout:
+  enabled: false
+
+stats:
+  enabled: false
+
+config:
+  paymentProcessing:
+    interval: 180
+  statistics:
+    enableReportedHashrate: false
+    updateInterval: 180
+    reportedHashrateInterval: 320
+    hashrateCalculationWindow: 10
+    gcInterval: 4
+    cleanupDays: 30
+  pool:
+    enabled: true
+    id: nexa1
+    address: TODO
+    banning:
+      enabled: false
+    blockRefreshInterval: 500
+    clientConnectionTimeout: 600
+    enableInternalStratum: true
+    jobRebroadcastTimeout: 1000
+    paymentProcessing:
+      enabled: true
+      minimumPayment: 1
+      payoutScheme: PPLNS
+      payoutSchemeConfig:
+        factor: 0.5
+    ports:
+      "4600":
+        difficulty: 0.1
+        listenAddress: "*"
+        name: Pool
+        tls: false
+        varDiff: null
+      "4601":
+        difficulty: 0.01
+        listenAddress: "*"
+        name: Pool1
+        tls: false
+        varDiff:
+          minDiff: 0.0001
+          targetTime: 2
+          retargetTime: 15
+          variancePercent: 30
+    rewardRecipients:
+      - address: TODO
+        percentage: 1.0
+        type: op
