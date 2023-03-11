@@ -18,11 +18,11 @@ miningcore:
       tag: "pr-5"
     stratum_ports:
       - name: vardiff1
-        containerPort: 4300
+        containerPort: 4600
         protocol: TCP
         nodePort: 30000
       - name: "highdiff1"
-        containerPort: 4301
+        containerPort: 4601
         protocol: TCP
         nodePort: 30001
     service:
