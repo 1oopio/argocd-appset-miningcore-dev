@@ -14,7 +14,7 @@ miningcore:
     name: stratum
     image:
       repository: ghcr.io/1oopio/miningcore
-      pullPolicy: IfNotPresent
+      pullPolicy: Always
       tag: "pr-5"
     stratum_ports:
       - name: vardiff1

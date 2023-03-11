@@ -8,7 +8,7 @@ miningcore:
     replicaCount: 1
     image:
       repository: ghcr.io/1oopio/miningcore
-      pullPolicy: IfNotPresent
+      pullPolicy: Always
       tag: "pr-5"
     affinity:
       nodeAffinity:
@@ -29,7 +29,7 @@ miningcore:
     name: payout
     image:
       repository: ghcr.io/1oopio/miningcore
-      pullPolicy: IfNotPresent
+      pullPolicy: Always
       tag: "pr-5"
     affinity:
       nodeAffinity:
