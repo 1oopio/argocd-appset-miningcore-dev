@@ -26,7 +26,19 @@ stratum:
       nodePort: 30001
   service:
     type: NodePort
-  affinity: {}
+  affinity:
+    nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: nodepooltype
+                  operator: In
+                  values:
+                    - fixed
+                - key: usecase
+                  operator: In
+                  values:
+                    - pool
 
 payout:
   enabled: false

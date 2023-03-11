@@ -9,7 +9,19 @@ stats:
     repository: ghcr.io/1oopio/miningcore
     pullPolicy: IfNotPresent
     tag: "pr-5"
-  affinity: {}
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: nodepooltype
+                operator: In
+                values:
+                  - fixed
+              - key: usecase
+                operator: In
+                values:
+                  - pool
 
 payout:
   enabled: true
@@ -18,6 +30,19 @@ payout:
     repository: ghcr.io/1oopio/miningcore
     pullPolicy: IfNotPresent
     tag: "pr-5"
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: nodepooltype
+                operator: In
+                values:
+                  - fixed
+              - key: usecase
+                operator: In
+                values:
+                  - pool
 
 config:
   pool:
@@ -29,3 +54,26 @@ config:
 
 postgresql:
   enabled: true
+  auth: 
+    existingSecret: miningcore-dev-db
+  serviceAccount:
+      automountServiceAccountToken: false
+  architecture: standalone
+  primary:
+    persistence:
+      enabled: true
+      storageClass: csi-cinder-classic
+      size: 5Gi
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: nodepooltype
+                  operator: In
+                  values:
+                    - fixed
+                - key: usecase
+                  operator: In
+                  values:
+                    - pool
