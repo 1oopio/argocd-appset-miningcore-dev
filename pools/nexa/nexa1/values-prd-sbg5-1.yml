@@ -1,69 +1,15 @@
-common:
-  clusterName: prd-sbg5-1
+miningcore:
+  common:
+    clusterName: prd-sbg5-1
 
-stats:
-  enabled: true
-  name: stats
-  replicaCount: 1
-  image:
-    repository: ghcr.io/1oopio/miningcore
-    pullPolicy: IfNotPresent
-    tag: "pr-5"
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-          - matchExpressions:
-              - key: nodepooltype
-                operator: In
-                values:
-                  - fixed
-              - key: usecase
-                operator: In
-                values:
-                  - pool
-
-payout:
-  enabled: true
-  name: payout
-  image:
-    repository: ghcr.io/1oopio/miningcore
-    pullPolicy: IfNotPresent
-    tag: "pr-5"
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-          - matchExpressions:
-              - key: nodepooltype
-                operator: In
-                values:
-                  - fixed
-              - key: usecase
-                operator: In
-                values:
-                  - pool
-
-config:
-  pool:
-    daemons:
-      - user: test
-        password: test
-        host: 10.200.119.113
-        port: 7229
-
-postgresql:
-  enabled: true
-  auth: 
-    existingSecret: miningcore-dev-db
-  serviceAccount:
-      automountServiceAccountToken: false
-  architecture: standalone
-  primary:
-    persistence:
-      enabled: true
-      storageClass: csi-cinder-classic
-      size: 5Gi
+  stats:
+    enabled: true
+    name: stats
+    replicaCount: 1
+    image:
+      repository: ghcr.io/1oopio/miningcore
+      pullPolicy: IfNotPresent
+      tag: "pr-5"
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
@@ -77,3 +23,58 @@ postgresql:
                   operator: In
                   values:
                     - pool
+
+  payout:
+    enabled: true
+    name: payout
+    image:
+      repository: ghcr.io/1oopio/miningcore
+      pullPolicy: IfNotPresent
+      tag: "pr-5"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: nodepooltype
+                  operator: In
+                  values:
+                    - fixed
+                - key: usecase
+                  operator: In
+                  values:
+                    - pool
+
+  config:
+    pool:
+      daemons:
+        - user: test
+          password: test
+          host: 10.200.119.113
+          port: 7229
+
+  postgresql:
+    enabled: true
+    auth: 
+      existingSecret: miningcore-dev-db
+    serviceAccount:
+        automountServiceAccountToken: false
+    architecture: standalone
+    primary:
+      persistence:
+        enabled: true
+        storageClass: csi-cinder-classic
+        size: 5Gi
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: nodepooltype
+                    operator: In
+                    values:
+                      - fixed
+                  - key: usecase
+                    operator: In
+                    values:
+                      - pool

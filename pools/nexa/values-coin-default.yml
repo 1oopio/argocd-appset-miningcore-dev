@@ -1,4 +1,5 @@
-config:
-  pool:
-    coin: nexa
-    chainTypeOverride: Nexa
+miningcore:
+  config:
+    pool:
+      coin: nexa
+      chainTypeOverride: Nexa
