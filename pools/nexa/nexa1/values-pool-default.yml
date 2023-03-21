@@ -27,6 +27,7 @@ miningcore:
         nodePort: 30001
     service:
       type: NodePort
+    resources: {}
     affinity:
       nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:

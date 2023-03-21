@@ -10,6 +10,7 @@ miningcore:
       repository: ghcr.io/1oopio/miningcore
       pullPolicy: Always
       tag: "pr-5"
+    resources: {}
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
@@ -27,6 +28,7 @@ miningcore:
   payout:
     enabled: true
     name: payout
+    resources: {}
     image:
       repository: ghcr.io/1oopio/miningcore
       pullPolicy: Always
