@@ -50,7 +50,7 @@ miningcore:
       pool:
         daemons:
           - host: 10.200.119.113
-            port: 16110
+            port: 16210
           - host: 10.200.119.113
             port: 8082
             category: wallet
@@ -59,7 +59,7 @@ miningcore:
     pool:
       daemons:
         - host: 10.200.119.113
-          port: 16110
+          port: 16210
 
   postgresql:
     enabled: false
