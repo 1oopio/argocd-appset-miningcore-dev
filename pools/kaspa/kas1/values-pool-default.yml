@@ -28,9 +28,6 @@ miningcore:
     service:
       type: NodePort
     resources: {}
-    extraEnvVars:
-      - name: MC_KASPA_WALLET_PASSWORD
-        value: usual-exposure-smolder-sandbag-dismantle-subscript-defiling-bronco-scraggly-reopen-stylus-justify-sarcasm-crazed-reissue-giggly-supplier-bagful-onstage-swagger
     affinity:
       nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -53,9 +50,6 @@ miningcore:
 
   stats:
     enabled: false
-    extraEnvVars:
-      - name: MC_KASPA_WALLET_PASSWORD
-        value: usual-exposure-smolder-sandbag-dismantle-subscript-defiling-bronco-scraggly-reopen-stylus-justify-sarcasm-crazed-reissue-giggly-supplier-bagful-onstage-swagger
 
   config:
     paymentProcessing:
