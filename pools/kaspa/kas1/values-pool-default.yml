@@ -1,0 +1,106 @@
+miningcore:
+  imagePullSecrets:
+    - name: mc-pullsecret
+
+  serviceMonitor:
+    enabled: true
+    jobLabel: miningcore-dev
+
+  common:
+    apiPort: 5000
+
+  stratum:
+    enabled: true
+    name: stratum
+    image:
+      repository: ghcr.io/1oopio/miningcore
+      pullPolicy: Always
+      tag: "pr-2"
+    stratum_ports:
+      - name: vardiff1
+        containerPort: 4600
+        protocol: TCP
+        nodePort: 30000
+      - name: "highdiff1"
+        containerPort: 4601
+        protocol: TCP
+        nodePort: 30001
+    service:
+      type: NodePort
+    resources: {}
+    extraEnvVars:
+      - name: MC_KASPA_WALLET_PASSWORD
+        value: usual-exposure-smolder-sandbag-dismantle-subscript-defiling-bronco-scraggly-reopen-stylus-justify-sarcasm-crazed-reissue-giggly-supplier-bagful-onstage-swagger
+    affinity:
+      nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: nodepooltype
+                    operator: In
+                    values:
+                      - fixed
+                  - key: usecase
+                    operator: In
+                    values:
+                      - pool
+
+  payout:
+    enabled: false
+    extraEnvVars:
+      - name: MC_KASPA_WALLET_PASSWORD
+        value: usual-exposure-smolder-sandbag-dismantle-subscript-defiling-bronco-scraggly-reopen-stylus-justify-sarcasm-crazed-reissue-giggly-supplier-bagful-onstage-swagger
+
+  stats:
+    enabled: false
+    extraEnvVars:
+      - name: MC_KASPA_WALLET_PASSWORD
+        value: usual-exposure-smolder-sandbag-dismantle-subscript-defiling-bronco-scraggly-reopen-stylus-justify-sarcasm-crazed-reissue-giggly-supplier-bagful-onstage-swagger
+
+  config:
+    paymentProcessing:
+      interval: 180
+    statistics:
+      enableReportedHashrate: false
+      updateInterval: 180
+      reportedHashrateInterval: 320
+      hashrateCalculationWindow: 10
+      gcInterval: 4
+      cleanupDays: 30
+    pool:
+      enabled: true
+      id: kas1
+      address: kaspatest:qqcm6w9n8r7tn530pfq06d7u46p2agzyy6s2tteme3xv85w3eymwya8l7sxs0
+      banning:
+        enabled: false
+      blockRefreshInterval: 500
+      clientConnectionTimeout: 600
+      enableInternalStratum: true
+      jobRebroadcastTimeout: 1000
+      paymentProcessing:
+        enabled: true
+        minimumPayment: 1
+        payoutScheme: PPLNS
+        payoutSchemeConfig:
+          factor: 0.5
+      ports:
+        "4700":
+          difficulty: 0.1
+          listenAddress: "*"
+          name: Pool
+          tls: false
+          varDiff: null
+        "4701":
+          difficulty: 0.01
+          listenAddress: "*"
+          name: Pool1
+          tls: false
+          varDiff:
+            minDiff: 0.0001
+            targetTime: 2
+            retargetTime: 15
+            variancePercent: 30
+      rewardRecipients:
+        - address: kaspatest:qzc0pngpgzje9k2t7kujkahs8hgmlp049nkwl292ewc4y7h2l4kr794nyeckv
+          percentage: 1.0
+          type: op
