@@ -20,11 +20,11 @@ miningcore:
       - name: vardiff1
         containerPort: 4600
         protocol: TCP
-        nodePort: 30000
+        nodePort: 30010
       - name: "highdiff1"
         containerPort: 4601
         protocol: TCP
-        nodePort: 30001
+        nodePort: 30011
     service:
       type: NodePort
     resources: {}
@@ -84,13 +84,13 @@ miningcore:
         payoutSchemeConfig:
           factor: 0.5
       ports:
-        "4700":
+        "4600":
           difficulty: 0.1
           listenAddress: "*"
           name: Pool
           tls: false
           varDiff: null
-        "4701":
+        "4601":
           difficulty: 0.01
           listenAddress: "*"
           name: Pool1
