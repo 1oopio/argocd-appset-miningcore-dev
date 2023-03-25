@@ -46,13 +46,19 @@ miningcore:
                   operator: In
                   values:
                     - pool
+    config:
+      pool:
+        daemons:
+          - host: 10.200.119.113
+            port: 16110
+          - host: 10.200.119.113
+            port: 8082
+            category: wallet
 
   config:
     pool:
       daemons:
-        - user: test
-          password: test
-          host: 10.200.119.113
+        - host: 10.200.119.113
           port: 16110
 
   postgresql:
