@@ -104,3 +104,11 @@ miningcore:
         - address: kaspatest:qzc0pngpgzje9k2t7kujkahs8hgmlp049nkwl292ewc4y7h2l4kr794nyeckv
           percentage: 1.0
           type: op
+
+  externalDatabase:
+    host: nexa1-postgresql  
+    port: 5432
+    database: miningcore
+    username: miningcore
+    existingSecretName: miningcore-dev-db
+    existingSecretKey: password
