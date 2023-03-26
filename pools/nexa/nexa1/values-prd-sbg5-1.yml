@@ -80,3 +80,13 @@ miningcore:
                     operator: In
                     values:
                       - pool
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+        relabelings:
+        - action: replace
+          replacement: prd-sbg5-1
+          targetLabel: cluster
+      prometheusRule:
+        enabled: true
