@@ -85,15 +85,15 @@ miningcore:
           tls: false
           varDiff: null
         "4601":
-          difficulty: 0.01
+          difficulty: 1
           listenAddress: "*"
           name: Pool1
           tls: false
           varDiff:
-            minDiff: 0.0001
-            targetTime: 2
-            retargetTime: 15
-            variancePercent: 30
+            minDiff: 0.01
+            targetTime: 15
+            retargetTime: 30
+            variancePercent: 70
       rewardRecipients:
         - address: kaspatest:qzc0pngpgzje9k2t7kujkahs8hgmlp049nkwl292ewc4y7h2l4kr794nyeckv
           percentage: 1.0
