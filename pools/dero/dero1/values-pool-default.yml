@@ -1,0 +1,120 @@
+miningcore:
+  imagePullSecrets:
+    - name: mc-pullsecret
+
+  serviceMonitor:
+    enabled: true
+    jobLabel: miningcore-dev
+
+  common:
+    apiPort: 5000
+
+  stratum:
+    enabled: true
+    name: stratum
+    image:
+      repository: ghcr.io/1oopio/miningcore
+      pullPolicy: Always
+      tag: "pr-8"
+      podSecurityContext:
+        fsGroup: 10001
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+    stratum_ports:
+      - name: vardiff1
+        containerPort: 4600
+        protocol: TCP
+        nodePort: 30020
+      - name: "highdiff1"
+        containerPort: 4601
+        protocol: TCP
+        nodePort: 30021
+    service:
+      type: NodePort
+    resources: {}
+    affinity:
+      nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: nodepooltype
+                    operator: In
+                    values:
+                      - fixed
+                  - key: usecase
+                    operator: In
+                    values:
+                      - pool
+
+  payout:
+    enabled: false
+
+  stats:
+    enabled: false
+
+  config:
+    paymentProcessing:
+      interval: 600
+    statistics:
+      enableReportedHashrate: true
+      updateInterval: 180
+      reportedHashrateInterval: 320
+      hashrateCalculationWindow: 10
+      gcInterval: 4
+      cleanupDays: 365
+    pool:
+      enabled: true
+      id: dero1
+      address: deto1qyphdp2wqnf8j6vkvzuvlshfm8esqfpfzxhrvt7z47v04g3thvcdjqqgwy0pd
+      banning:
+        checkThreshold: 50
+        enabled: false
+        invalidPercent: 50
+        time: 600
+      blacklistedAddresses:
+        - dero1qyr8wnk9aw9lel0xcufdj98cqtd3lc5y84nhl679nm3wknaz0ad6xqqm622zv
+        - dero1qyfrcq87475la7yrgzgv2as79e2u7avc7hw8ttpv5vhnh7gcufdq2qqd986wh
+      blockRefreshInterval: 200
+      clientConnectionTimeout: 600
+      enableInternalStratum: true
+      jobRebroadcastTimeout: 1000
+      paymentProcessing:
+        enabled: true
+        minimumPayment: 0.2
+        payoutBatchSize: 15
+        payoutDelay: 35000
+        ringSize: 2
+        payoutScheme: PPLNS
+        payoutSchemeConfig:
+          factor: 0.5
+      ports:
+        "4600":
+          difficulty: 10000
+          listenAddress: "*"
+          name: Pool
+          tls: false
+          varDiff: null
+        "4601":
+          difficulty: 10000
+          listenAddress: "*"
+          name: Pool1
+          tls: false
+          varDiff:
+            minDiff: 7000
+            targetTime: 5
+            retargetTime: 30
+            variancePercent: 70
+      rewardRecipients:
+        - address: deto1qyje7u6xy2wj23qkyqxdswer6keudenlzy2zwrl9zgsna8vl4fn8kqggx8s36
+          percentage: 1.0
+          type: op
+
+  externalDatabase:
+    host: nexa1-postgresql  
+    port: 5432
+    database: miningcore
+    username: miningcore
+    existingSecretName: miningcore-dev-db
+    existingSecretKey: password

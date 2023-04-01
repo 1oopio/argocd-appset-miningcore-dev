@@ -1,0 +1,88 @@
+miningcore:
+  common:
+    clusterName: prd-sbg5-1
+
+  stats:
+    enabled: true
+    name: stats
+    replicaCount: 1
+    image:
+      repository: ghcr.io/1oopio/miningcore
+      pullPolicy: Always
+      tag: "pr-8"
+    resources: {}
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: nodepooltype
+                  operator: In
+                  values:
+                    - fixed
+                - key: usecase
+                  operator: In
+                  values:
+                    - pool
+
+  payout:
+    enabled: true
+    name: payout
+    resources: {}
+    image:
+      repository: ghcr.io/1oopio/miningcore
+      pullPolicy: Always
+      tag: "pr-8"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: nodepooltype
+                  operator: In
+                  values:
+                    - fixed
+                - key: usecase
+                  operator: In
+                  values:
+                    - pool
+    config:
+      pool:
+        daemons:
+          - host: 10.200.119.113
+            port: 10102
+          - host: 10.200.119.113
+            port: 20209
+            category: wallet
+
+  config:
+    pool:
+      daemons:
+        - host: 10.200.119.113
+          port: 10102
+
+  postgresql:
+    enabled: false
+    auth: 
+      existingSecret: miningcore-dev-db
+    serviceAccount:
+        automountServiceAccountToken: false
+    architecture: standalone
+    primary:
+      persistence:
+        enabled: true
+        storageClass: csi-cinder-classic
+        size: 5Gi
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: nodepooltype
+                    operator: In
+                    values:
+                      - fixed
+                  - key: usecase
+                    operator: In
+                    values:
+                      - pool

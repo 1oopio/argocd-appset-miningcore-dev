@@ -1,0 +1,5 @@
+miningcore:
+  config:
+    pool:
+      coin: dero
+      chainTypeOverride: Dero
