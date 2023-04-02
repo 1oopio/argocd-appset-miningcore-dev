@@ -9,7 +9,7 @@ miningcore:
     image:
       repository: ghcr.io/1oopio/miningcore
       pullPolicy: Always
-      tag: "sha-aae03bd"
+      tag: "sha-c6e2098"
     resources: {}
     affinity:
       nodeAffinity:
@@ -32,7 +32,7 @@ miningcore:
     image:
       repository: ghcr.io/1oopio/miningcore
       pullPolicy: Always
-      tag: "sha-aae03bd"
+      tag: "sha-c6e2098"
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
