@@ -15,7 +15,7 @@ miningcore:
     image:
       repository: ghcr.io/1oopio/miningcore
       pullPolicy: Always
-      tag: "sha-f05b0aa"
+      tag: "sha-fd7b0e5"
       podSecurityContext:
         fsGroup: 10001
       securityContext:
